@@ -1,13 +1,13 @@
-const { WorkerData, parentPort } = require("worker_threads");
+const { parentPort, workerData } = require("worker_threads");
 
-const doWork = () => {
-  let counter = 0;
+const doWork = ({ min, max }) => {
+  let counter = min;
 
-  while (counter < 1e9) {
+  while (counter < max) {
     counter++;
   }
 
   return counter;
 };
 
-parentPort.postMessage(doWork());
+parentPort.postMessage(doWork(workerData));
